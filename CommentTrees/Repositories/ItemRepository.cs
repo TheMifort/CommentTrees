@@ -19,6 +19,9 @@ namespace CommentTrees.Repositories
 
         public async Task<IEnumerable<Item>> GetAsync(int? id = default)
         {
+            if (id != default)
+                await _dbConnection.QueryAsync<Item>("SelectItem", new {itemId = id},
+                    commandType: CommandType.StoredProcedure);
             return await _dbConnection.QueryAsync<Item>("SelectItems", commandType: CommandType.StoredProcedure);
         }
 
