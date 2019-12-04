@@ -9,6 +9,9 @@
                SELECT * FROM [$(TableName)]					
 --------------------------------------------------------------------------------------
 */
+
+IF (SELECT Count(*) FROM Item) = 0
+
 INSERT INTO [Item] (Name) VALUES
 ('Item1'),
 ('Item2'),
