@@ -1,36 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Data;
 using System.Threading.Tasks;
 using CommentTrees.Abstract;
 using CommentTrees.Models.Database;
+using Dapper;
 
 namespace CommentTrees.Repositories
 {
     public class CommentRepository : IRepository<Comment>
     {
-        public Task<IEnumerable<Comment>> GetAsync()
+        private readonly IDbConnection _dbConnection;
+
+        public CommentRepository(IDbConnection dbConnection)
         {
-            throw new NotImplementedException();
+            _dbConnection = dbConnection;
         }
 
-        public Task<IEnumerable<Comment>> GetAsync(Predicate<Comment> predicate)
+        public async Task<IEnumerable<Comment>> GetAsync(int? id = default)
         {
-            throw new NotImplementedException();
+            return await _dbConnection.QueryAsync<Comment>("SelectCommentByItem", new {itemId = id},
+                commandType: CommandType.StoredProcedure);
         }
 
-        public Task InsertAsync(Comment customer)
+        public async Task InsertAsync(Comment entry)
         {
-            throw new NotImplementedException();
+            await _dbConnection.ExecuteAsync("InsertComment",
+                new {text = entry.Text, itemId = entry.ItemId, commentId = entry.CommentId},
+                commandType: CommandType.StoredProcedure);
         }
 
-        public Task DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
-        }
-
-        public void Dispose()
-        {
-            throw new NotImplementedException();
+            await _dbConnection.ExecuteAsync("DeleteComment",
+                new { commentId = id },
+                commandType: CommandType.StoredProcedure);
         }
     }
 }

@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CommentTrees.Abstract
 {
-    public interface IRepository<T> : IDisposable
+    public interface IRepository<T>
     {
-        Task<IEnumerable<T>> GetAsync();
-        Task<IEnumerable<T>> GetAsync(Predicate<T> predicate);
-        Task InsertAsync(T customer);
+        Task<IEnumerable<T>> GetAsync(int? id = default);
+        Task InsertAsync(T entry);
         Task DeleteAsync(int id);
     }
 }

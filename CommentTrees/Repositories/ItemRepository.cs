@@ -1,24 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Threading.Tasks;
 using CommentTrees.Abstract;
 using CommentTrees.Models.Database;
+using Dapper;
 
 namespace CommentTrees.Repositories
 {
     public class ItemRepository : IRepository<Item>
     {
-        public Task<IEnumerable<Item>> GetAsync()
+        private readonly IDbConnection _dbConnection;
+
+        public ItemRepository(IDbConnection dbConnection)
         {
-            throw new NotImplementedException();
+            _dbConnection = dbConnection;
         }
 
-        public Task<IEnumerable<Item>> GetAsync(Predicate<Item> predicate)
+        public async Task<IEnumerable<Item>> GetAsync(int? id = default)
         {
-            throw new NotImplementedException();
+            return await _dbConnection.QueryAsync<Item>("SelectItems", commandType: CommandType.StoredProcedure);
         }
 
-        public Task InsertAsync(Item customer)
+        public Task InsertAsync(Item entry)
         {
             throw new NotImplementedException();
         }
@@ -27,11 +31,5 @@ namespace CommentTrees.Repositories
         {
             throw new NotImplementedException();
         }
-
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
-
     }
 }
