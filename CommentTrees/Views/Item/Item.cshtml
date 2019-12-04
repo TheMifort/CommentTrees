@@ -1,0 +1,22 @@
+﻿@using CommentTrees.Helpers
+@model CommentTrees.Models.View.ItemViewModel
+
+@{
+    ViewBag.Title = "Item";
+    Layout = "_Layout";
+}
+
+<h2>Item</h2>
+<div style="margin-top: 3px;">
+    @Html.TextBox("Name", Model.Name, new {disabled = true})
+</div>
+
+<div style="margin-left: -10px;">
+    @Html.PrintTree(Model)
+</div>
+
+<form method="post" style="margin-top: 5px;" asp-action="Comment">
+    <input type="hidden" name="itemId" value="@Model.Id"/>
+    <input type="text" name="text"/>
+    <input type="submit" value="Comment"/>
+</form>
