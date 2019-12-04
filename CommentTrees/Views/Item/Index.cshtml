@@ -1,0 +1,17 @@
+﻿@model IEnumerable<CommentTrees.Models.View.ItemViewModel>
+
+@{
+    ViewBag.Title = "Items";
+    Layout = "_Layout";
+}
+
+<h2>Items</h2>
+
+@foreach (var item in Model)
+{
+    <div style="margin-top: 3px;">
+        @Html.TextBox("Name", item.Name, new { disabled = true })
+        @Html.ActionLink("Open", "Item", "Item", new { id = item.Id })
+    </div>
+}
+
