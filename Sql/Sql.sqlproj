@@ -63,5 +63,11 @@
   <ItemGroup>
     <Build Include="Tables\Item.sql" />
     <Build Include="Tables\Comment.sql" />
+    <Build Include="Procedures\SelectCommentByItem.sql" />
+    <Build Include="Procedures\DeleteComment.sql" />
+    <Build Include="Procedures\InsertComment.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Queries\InsertItems.PostDeployment1.sql" />
   </ItemGroup>
 </Project>
