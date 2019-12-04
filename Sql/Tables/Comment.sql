@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[Comment]
+(
+	[Id] INT IDENTITY NOT NULL PRIMARY KEY,
+	[Text] NVARCHAR(200),
+	[Item_Id] INT FOREIGN KEY REFERENCES Item(Id),
+	[Comment_Id] INT FOREIGN KEY REFERENCES Comment(Id)
+)
