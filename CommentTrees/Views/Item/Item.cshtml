@@ -2,14 +2,11 @@
 @model CommentTrees.Models.View.ItemViewModel
 
 @{
-    ViewBag.Title = "Item";
+    ViewBag.Title = Model.Name;
     Layout = "_Layout";
 }
 
-<h2>Item</h2>
-<div style="margin-top: 3px;">
-    @Html.TextBox("Name", Model.Name, new {disabled = true})
-</div>
+<h2>@Model.Name</h2>
 
 <div style="margin-left: -10px;">
     @Html.PrintTree(Model)
